@@ -23,7 +23,7 @@ d = DockerFile(base_img='tensorflow/tensorflow:devel-gpu-py3', name=img)
 
 d.WORKDIR = '/tensorflow_src'
 d.RUN = 'cd "/usr/local/lib/bazel/bin" && curl -LO https://releases.bazel.build/0.29.1/release/bazel-0.29.1-linux-x86_64 && chmod +x bazel-0.29.1-linux-x86_64'
-d.RUN = 'git pull && git checkout r2.1 && yes "" | TF_CUDA_COMPUTE_CAPABILITIES="6.0,6.1,7.0,7.5" ./configure'
+d.RUN = 'git pull && git checkout r2.2 && yes "" | TF_CUDA_COMPUTE_CAPABILITIES="6.0,6.1,7.0,7.5" ./configure'
 d.RUN = 'bazel build --noincompatible_do_not_split_linking_cmdline -c opt --copt=-march=x86-64 --config=mkl --config=cuda --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0" --config=monolithic -k  //tensorflow/tools/pip_package:build_pip_package'
 d.RUN = './bazel-bin/tensorflow/tools/pip_package/build_pip_package /opt'
 
